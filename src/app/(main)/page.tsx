@@ -1,5 +1,5 @@
-import HomeSolutionSection from './vendor/components/home-solution-section';
-import MainSection from './vendor/components/main-section';
+import HomeSolutionSection from './components/home-solution-section';
+import MainSection from './components/main-section';
 import Footer from '@/components/layout/footer';
 
 const Home = () => {
