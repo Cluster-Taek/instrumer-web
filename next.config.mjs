@@ -11,10 +11,6 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/upload',
-        destination: `http://15.164.140.112:8080/api/user-service/auth/presigned-url`,
-      },
-      {
         source: '/api/token',
         destination: `/api/token`,
       },
