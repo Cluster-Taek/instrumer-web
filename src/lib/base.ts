@@ -23,7 +23,7 @@ const _fetchApi = async <T = object>({ method, url, body }: IFetchApiArgs): Prom
     params: method === 'GET' ? body : undefined,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session?.user?.accessToken}`,
+      ...(session?.user?.accessToken && { Authorization: `Bearer ${session.user.accessToken}` }),
     },
     withCredentials: true,
   }).catch(async (error) => {

@@ -1,72 +1,60 @@
+// ============ Enums ============
+
+export type UserType = 'VENDOR' | 'CONSUMER';
+
 // ============ Request Types ============
 
-export interface ILoginVendorRequest extends Record<string, unknown> {
+// 로그인 요청
+export interface ILoginUserRequest extends Record<string, unknown> {
   email: string;
   password: string;
 }
 
-export interface ILoginConsumerRequest extends Record<string, unknown> {
-  email: string;
-  password: string;
-}
-
-export interface ISaveVendorRequest extends Record<string, unknown> {
-  vendorName: string;
+// 벤더 회원가입 요청
+export interface IRegisterVendorRequest extends Record<string, unknown> {
+  businessName: string;
   managerName: string;
-  phoneNumber: string;
+  phone: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  businessImageUrl: string;
 }
 
-export interface ISaveConsumerRequest extends Record<string, unknown> {
-  consumerName: string;
-  phoneNum: string;
+// 수요기업 회원가입 요청
+export interface IRegisterConsumerRequest extends Record<string, unknown> {
+  businessName: string;
+  managerName: string;
+  phone: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  industry: string;
 }
 
-export interface ISendMailRequest extends Record<string, unknown> {
+// 이메일 전송 요청
+export interface ISendEmailRequest extends Record<string, unknown> {
   email: string;
 }
 
-export interface IVerifyCodeRequest extends Record<string, unknown> {
-  code: string;
+// 이메일 인증 확인 요청
+export interface IVerifyEmailAuthKeyRequest extends Record<string, unknown> {
   email: string;
+  authCode: string;
 }
 
-export interface IResetPasswordRequest extends Record<string, unknown> {
-  newPassword: string;
-  confirmPassword: string;
-}
-
-export interface IResetLinkRequest extends Record<string, unknown> {
-  email: string;
-  vendorName: string;
+// 토큰 재발급 요청
+export interface IReissueTokenRequest extends Record<string, unknown> {
+  refreshToken: string;
 }
 
 // ============ Response Types ============
 
-export interface ILoginVendorResponse {
+// 로그인 응답
+export interface ILoginUserResponse {
   accessToken: string;
   refreshToken: string;
-  vendorSeq: number;
-  vendorUniqueType: string;
-  vendorName: string;
 }
 
-export interface ILoginConsumerResponse {
+// 토큰 재발급 응답
+export interface IReIssueTokenResponse {
   accessToken: string;
   refreshToken: string;
-  consumerSeq: number;
-  consumerUniqueType: string;
-  consumerName: string;
-}
-
-export interface IResetLinkResponse {
-  token: string;
-  link: string;
-  consumerSeq: number;
 }

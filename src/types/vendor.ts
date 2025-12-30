@@ -1,61 +1,29 @@
-import { ILocalTime } from './api';
-import { Category } from './solution';
+import { UserType } from './auth';
 
-// ============ Interfaces ============
+// ============ Request Types ============
 
-export type StatType = 'SALES_SIZE' | 'EMPLOYEES_SIZE';
-
-export const getStatTypeLabel = (type: StatType): string => {
-  return type === 'SALES_SIZE' ? '매출 규모' : '직원 수';
-};
-
-export interface IStatResponse {
-  statType: StatType;
-  percentage: number;
-  label: string;
+// 벤더 정보 수정 요청
+export interface IUpdateVendorRequest extends Record<string, unknown> {
+  businessName?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  bank?: string;
+  account?: string;
+  profileImageUrl?: string;
 }
 
-export interface IClientResponse {
-  clientSeq: number;
-  logoImageUrl: string;
-}
+// ============ Response Types ============
 
-export interface IVendorInfo {
-  vendorSeq: number;
-  vendorName: string;
-  managerName: string;
-  phoneNumber: string;
+// 벤더 정보 조회 응답
+export interface IGetVendorResponse {
+  userSeq: number;
   email: string;
-  audit: boolean;
-  accountNumber: string;
-  bank: string;
-  vendorExplanation: string;
-  vendorBannerImageUrl: string;
-  weekdayAvailable: boolean;
-  weekdayStartTime: ILocalTime;
-  weekdayEndTime: ILocalTime;
-  weekendAvailable: boolean;
-  weekendStartTime: ILocalTime;
-  weekendEndTime: ILocalTime;
-  holidayAvailable: boolean;
-  holidayStartTime: ILocalTime;
-  holidayEndTime: ILocalTime;
-  orderCount: number;
-  clientCount: number;
-  vendorUniqueType: string;
-  profileImage: string;
-  stats: IStatResponse[];
-  clientResponses: IClientResponse[];
-}
-
-export interface IVendorSolution {
-  solutionSeq: number;
-  solutionName: string;
-  category: Category;
-  amount: number;
-}
-
-export interface IVendorSolutionCategory {
-  category: Category;
-  solutionSeq: number;
+  userType: UserType;
+  profileImageUrl?: string;
+  businessName: string;
+  managerName: string;
+  phone: string;
+  bank?: string;
+  account?: string;
 }
