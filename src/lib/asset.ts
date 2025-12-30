@@ -18,6 +18,6 @@ export interface IPresignedURLResponse {
 export const getPresignedUrl = ({ fileName, expiration }: IPresignedURLRequest) => {
   return fetchApi.post<IBaseResponse<IPresignedURLResponse>>('/api/public/presigned-url', {
     fileName,
-    expiration,
+    expiration: expiration ?? 60,
   });
 };
