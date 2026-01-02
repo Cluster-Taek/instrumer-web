@@ -2,6 +2,18 @@
 
 export type UserType = 'VENDOR' | 'CONSUMER';
 
+// ============ JWT Payload ============
+
+export interface IJwtPayload {
+  sub: string;
+  userType: UserType;
+  type: 'ACCESS' | 'REFRESH';
+  exp: number;
+  iat: number;
+  userSeq: number;
+  jti: string;
+}
+
 // ============ Request Types ============
 
 // 로그인 요청

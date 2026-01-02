@@ -1,4 +1,5 @@
 import { login, tokenRefresh } from '@/lib/auth';
+import { IJwtPayload } from '@/types/auth';
 import dayjs from 'dayjs';
 import { jwtDecode } from 'jwt-decode';
 import { NextAuthOptions, User } from 'next-auth';
@@ -53,17 +54,22 @@ export const authOptions: NextAuthOptions = {
       if (account && user) {
         const accessToken = user.accessToken as string;
         let exp: number | undefined;
+        let userType: IJwtPayload['userType'] | undefined;
+        let userSeq: number | undefined;
 
         if (accessToken) {
           try {
-            exp = jwtDecode(accessToken).exp as number;
+            const decoded = jwtDecode<IJwtPayload>(accessToken);
+            exp = decoded.exp;
+            userType = decoded.userType;
+            userSeq = decoded.userSeq;
           } catch {
             // 유효하지 않은 JWT인 경우 무시
           }
         }
 
         return {
-          user,
+          user: { ...user, userType, userSeq },
           accessToken,
           refreshToken: user.refreshToken,
           exp,
@@ -79,13 +85,18 @@ export const authOptions: NextAuthOptions = {
       if (token.refreshToken) {
         try {
           const { accessToken, refreshToken } = await tokenRefresh(token.refreshToken as string);
-          const exp = jwtDecode(accessToken).exp as number;
+          const decoded = jwtDecode<IJwtPayload>(accessToken);
 
           return {
             ...token,
+            user: {
+              ...(token.user as User),
+              userType: decoded.userType,
+              userSeq: decoded.userSeq,
+            },
             accessToken,
             refreshToken,
-            exp,
+            exp: decoded.exp,
           };
         } catch (error) {
           console.error('Token refresh failed:', error);

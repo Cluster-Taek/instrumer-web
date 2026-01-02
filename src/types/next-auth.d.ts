@@ -5,6 +5,7 @@
  */
 import { DefaultSession } from 'next-auth';
 import type { UserRole } from './user';
+import type { UserType } from './auth';
 
 declare module 'next-auth' {
   interface User {
@@ -15,6 +16,8 @@ declare module 'next-auth' {
     brandId?: string;
     accessToken: string;
     refreshToken: string;
+    userType?: UserType;
+    userSeq?: number;
   }
   interface Session extends DefaultSession {
     user: User;

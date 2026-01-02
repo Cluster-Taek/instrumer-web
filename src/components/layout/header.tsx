@@ -1,7 +1,6 @@
 'use client';
 
 import LoginModal from '../auth/login-modal';
-import TestButton from '../test-button';
 import { Dropdown } from '@/components/ui/dropdown';
 import { CATEGORY_OPTIONS } from '@/constants/solution-constants';
 import { ChevronDown } from '@medusajs/icons';
@@ -13,6 +12,13 @@ import { useRouter } from 'next/navigation';
 const Header = () => {
   const router = useRouter();
   const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut({
+      redirect: false,
+    });
+    router.push('/');
+  };
 
   return (
     <header className="w-full backdrop-blur-[2000px] shadow-[0px_5px_10px_0px_#0000001A] sticky top-0 z-10">
@@ -45,7 +51,7 @@ const Header = () => {
           {session ? (
             <>
               <span className="text-[18px] text-gray-700">{session.user?.name}</span>
-              <button onClick={() => signOut()} className="text-[18px] text-red-500 hover:text-red-700">
+              <button onClick={handleSignOut} className="text-[18px] text-red-500 hover:text-red-700">
                 로그아웃
               </button>
             </>
@@ -57,7 +63,6 @@ const Header = () => {
               </Link>
             </>
           )}
-          <TestButton />
         </div>
       </div>
     </header>
