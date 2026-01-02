@@ -63,7 +63,7 @@ export const ControlledInput = <T extends FieldValues>({
               if (type === 'number') {
                 // Store the raw number value in the form
                 const rawValue = getOnlyNumber(e.target.value);
-                field.onChange(rawValue);
+                field.onChange(rawValue ? Number(rawValue) : 0);
 
                 // Update the display value with commas
                 const formatted = formatNumberWithCommas(e.target.value);

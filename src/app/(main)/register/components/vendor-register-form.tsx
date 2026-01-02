@@ -1,13 +1,11 @@
 'use client';
 
-import S3Uploader from '@/components/common/s3-uploader';
+import FileUploadBox from '@/components/common/file-upload-box';
 import { Button } from '@/components/ui/button';
 import { ControlledInput } from '@/components/ui/controlled-input';
 import { REGEX } from '@/constants/regex-constants';
 import useTimer from '@/hooks/use-timer';
 import { useRegisterVendorMutation, useSendEmailMutation, useVerifyEmailAuthKeyMutation } from '@/lib/b2b-auth';
-import { Plus, Upload, X } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -107,18 +105,6 @@ const VendorRegisterForm = () => {
       setIsPasswordMatched(false);
       form.setError('passwordConfirm', { message: '비밀번호가 일치하지 않습니다.' });
     }
-  };
-
-  // 사업자등록증 업로드 성공
-  const handleUploadSuccess = (urls: string[]) => {
-    if (urls.length > 0) {
-      setBusinessImageUrl(urls[0]);
-    }
-  };
-
-  // 사업자등록증 삭제
-  const handleRemoveImage = () => {
-    setBusinessImageUrl('');
   };
 
   // 회원가입 제출
@@ -306,41 +292,14 @@ const VendorRegisterForm = () => {
 
         {/* 오른쪽: 사업자 등록증 업로드 */}
         <div className="w-[200px] shrink-0">
-          {businessImageUrl ? (
-            <div className="relative h-[220px] w-full overflow-hidden rounded-lg border bg-gray-100">
-              <Image src={businessImageUrl} alt="사업자 등록증" fill className="object-cover" />
-              <button
-                type="button"
-                onClick={handleRemoveImage}
-                className="absolute right-2 top-2 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-          ) : (
-            <S3Uploader onSuccess={handleUploadSuccess} accept="image/*" maxSize={10 * 1024 * 1024}>
-              {({ open, uploading, progress }) => (
-                <button
-                  type="button"
-                  onClick={open}
-                  disabled={uploading}
-                  className="flex h-[220px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border border-gray-300 bg-gray-50 transition-colors hover:border-primary hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {uploading ? (
-                    <>
-                      <Upload className="mb-2 h-8 w-8 animate-pulse text-gray-400" />
-                      <span className="text-sm text-gray-500">{progress}%</span>
-                    </>
-                  ) : (
-                    <>
-                      <Plus className="mb-2 h-8 w-8 text-gray-400" />
-                      <span className="text-sm text-gray-500">사업자 등록증 첨부</span>
-                    </>
-                  )}
-                </button>
-              )}
-            </S3Uploader>
-          )}
+          <FileUploadBox
+            value={businessImageUrl}
+            onChange={setBusinessImageUrl}
+            type="image"
+            label="사업자 등록증 첨부"
+            height={220}
+            className="w-full"
+          />
         </div>
       </div>
 
