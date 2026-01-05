@@ -25,14 +25,14 @@ const Header = () => {
 
   return (
     <header className="w-full backdrop-blur-[2000px] shadow-[0px_5px_10px_0px_#0000001A] sticky top-0 z-10">
-      <div className="flex items-center justify-between h-[90px] px-[100px]">
+      <div className="max-w-screen-xl mx-auto w-full flex items-center justify-between h-16 px-16">
         <div className="flex items-center gap-8">
           <Link href="/">
-            <Image src="/images/logo.svg" alt="logo" width={154} height={42} />
+            <Image src="/images/logo.svg" alt="logo" width={100} height={28} />
           </Link>
 
           <Dropdown.Root>
-            <Dropdown.Trigger className="flex items-center gap-2 text-lg text-gray-700 hover:text-gray-900 ">
+            <Dropdown.Trigger className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900">
               온라인 솔루션 탐색
               <ChevronDown className="w-4 h-4" />
             </Dropdown.Trigger>
@@ -40,7 +40,7 @@ const Header = () => {
               {CATEGORY_OPTIONS.map((category) => (
                 <Dropdown.Item
                   key={category.value}
-                  className="text-start whitespace-nowrap px-6 py-2 text-lg"
+                  className="text-start whitespace-nowrap px-6 py-2 text-sm"
                   onSelect={() => router.push(`/solutions?category=${category.value}`)}
                 >
                   {category.label}
@@ -76,7 +76,7 @@ const Header = () => {
           ) : (
             <>
               <LoginModal />
-              <Link href="/register" className="text-[18px] text-gray-700 hover:text-gray-900">
+              <Link href="/register" className="text-sm text-gray-700 hover:text-gray-900">
                 회원가입
               </Link>
             </>

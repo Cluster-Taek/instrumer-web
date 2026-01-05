@@ -5,8 +5,8 @@ import { ControlledInput } from '@/components/ui/controlled-input';
 import { useModals } from '@/contexts/modal-provider';
 import { ILoginFormValue } from '@/lib/auth';
 import { X } from 'lucide-react';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -52,11 +52,7 @@ const LoginModalContent = ({ onClose }: ILoginModalContentProps) => {
 
   return (
     <div className="relative w-[400px] rounded-xl bg-white p-8 shadow-lg">
-      <button
-        type="button"
-        onClick={handleClose}
-        className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
-      >
+      <button type="button" onClick={handleClose} className="absolute right-4 top-4 text-gray-400 hover:text-gray-600">
         <X className="h-6 w-6" />
       </button>
 
@@ -87,7 +83,11 @@ const LoginModalContent = ({ onClose }: ILoginModalContentProps) => {
         />
 
         <div className="text-left">
-          <Link href="/forgot-password" onClick={handleClose} className="text-sm text-gray-500 underline hover:text-gray-700">
+          <Link
+            href="/forgot-password"
+            onClick={handleClose}
+            className="text-sm text-gray-500 underline hover:text-gray-700"
+          >
             비밀번호를 잊어버리셨나요?
           </Link>
         </div>
@@ -133,7 +133,7 @@ const LoginModal = ({ trigger }: ILoginModalProps) => {
       {trigger}
     </div>
   ) : (
-    <button type="button" onClick={open} className="text-[18px] text-gray-700 hover:text-gray-900">
+    <button type="button" onClick={open} className="text-sm text-gray-700 hover:text-gray-900">
       로그인
     </button>
   );

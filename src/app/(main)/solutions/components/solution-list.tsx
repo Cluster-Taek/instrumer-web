@@ -29,7 +29,7 @@ const SolutionList = () => {
 
   return (
     <div className="w-full">
-      <p className="mb-4 font-semibold">
+      <p className="mb-4 font-semibold text-sm">
         <span className="text-primary">{data?.data?.page?.totalElements ?? 0}</span>개의 솔루션
       </p>
       <div className="grid grid-cols-4 gap-6">

@@ -5,12 +5,12 @@ import { Suspense } from 'react';
 const Page = () => {
   return (
     <Suspense>
-      <div className="flex flex-col px-[100px] py-[80px] h-full">
-        <div className="flex gap-[50px]">
-          <div className="w-[325px] shrink-0 overflow-y-auto">
+      <div className="flex flex-col px-16 py-12 w-full">
+        <div className="flex gap-8">
+          <div className="shrink-0 w-1/5">
             <SolutionFilter />
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-grow">
             <SolutionList />
           </div>
         </div>

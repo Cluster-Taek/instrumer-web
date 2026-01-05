@@ -19,12 +19,12 @@ const SolutionFilter = () => {
   );
 
   return (
-    <div className="flex w-[325px] shrink-0 flex-col gap-[50px]">
+    <div className="flex w-full shrink-0 flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-semibold text-gray-900">검색 필터</h2>
+        <h2 className="text-xl font-semibold text-gray-900">검색 필터</h2>
 
         <FilterSection title="솔루션 상세 검색">
-          <div className="space-y-[30px]">
+          <div className="space-y-4">
             <div>
               <p className="mb-2 text-sm text-gray-600">솔루션 카테고리 선택</p>
               <FilterPillGroup<Category>
@@ -49,7 +49,7 @@ const SolutionFilter = () => {
             <button
               type="button"
               onClick={applyFilters}
-              className="w-full rounded-[7px] bg-primary py-3 text-base font-medium text-white transition-colors hover:bg-primary/90"
+              className="w-full rounded-[7px] bg-primary py-2.5 text-xs font-medium text-white transition-colors hover:bg-primary/90"
             >
               설정하기
             </button>

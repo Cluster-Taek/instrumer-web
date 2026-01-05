@@ -5,7 +5,7 @@ import { useSuspenseUserInfo } from '@/lib/user';
 
 export const UserInfoSkeleton = () => (
   <>
-    <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
+    <div className="size-8 animate-pulse rounded-full bg-gray-200" />
     <div className="h-5 w-24 animate-pulse rounded bg-gray-200" />
   </>
 );
@@ -16,13 +16,11 @@ const UserInfo = () => {
 
   return (
     <>
-      <Avatar className="h-10 w-10">
+      <Avatar className="size-8">
         <AvatarImage src={user?.profileImageUrl} alt="프로필" />
-        <AvatarFallback className="bg-gray-200 text-gray-500">
-          {user?.businessName?.charAt(0) || 'U'}
-        </AvatarFallback>
+        <AvatarFallback className="bg-gray-200 text-gray-500">{user?.businessName?.charAt(0) || 'U'}</AvatarFallback>
       </Avatar>
-      <span className="text-[18px] text-gray-700">{user?.businessName}</span>
+      <span className="text-sm text-gray-700">{user?.businessName}</span>
     </>
   );
 };

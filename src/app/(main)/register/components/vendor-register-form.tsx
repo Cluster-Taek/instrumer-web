@@ -208,11 +208,19 @@ const VendorRegisterForm = () => {
               />
               <Button
                 type="button"
+                variant="default"
+                size="sm"
                 onClick={handleSendAuthCode}
                 disabled={isSendingEmail || isEmailVerified || isRunning}
-                className="h-auto shrink-0 rounded-full bg-primary px-9 py-3 text-base font-semibold leading-none"
+                className="shrink-0 rounded-full px-6"
               >
-                {isSendingEmail ? '전송 중...' : isRunning ? `재전송 (${formattedTime})` : isEmailSent ? '인증코드 재전송' : '인증코드 전송'}
+                {isSendingEmail
+                  ? '전송 중...'
+                  : isRunning
+                    ? `재전송 (${formattedTime})`
+                    : isEmailSent
+                      ? '인증코드 재전송'
+                      : '인증코드 전송'}
               </Button>
             </div>
           </div>
@@ -231,9 +239,11 @@ const VendorRegisterForm = () => {
               />
               <Button
                 type="button"
+                variant="default"
+                size="sm"
                 onClick={handleVerifyAuthCode}
                 disabled={!isEmailSent || isVerifyingEmail || isEmailVerified}
-                className="h-auto shrink-0 rounded-full bg-primary px-9 py-3 text-base font-semibold leading-none"
+                className="shrink-0 rounded-full px-6"
               >
                 {isVerifyingEmail ? '확인 중...' : isEmailVerified ? '인증완료' : '인증코드 확인'}
               </Button>
@@ -279,9 +289,11 @@ const VendorRegisterForm = () => {
               />
               <Button
                 type="button"
+                variant="default"
+                size="sm"
                 onClick={handleCheckPassword}
                 disabled={!watchPassword || !watchPasswordConfirm}
-                className="h-auto shrink-0 rounded-full bg-primary px-9 py-3 text-base font-semibold leading-none"
+                className="shrink-0 rounded-full px-6"
               >
                 비밀번호 확인
               </Button>
@@ -309,11 +321,13 @@ const VendorRegisterForm = () => {
       )}
 
       {/* 제출 버튼 */}
-      <div className="pt-4">
+      <div className="pt-4 flex justify-center">
         <Button
           type="submit"
+          variant="default"
+          size="lg"
           disabled={isRegistering || !isEmailVerified || !isPasswordMatched || !businessImageUrl}
-          className="h-auto w-full rounded-md bg-primary px-[132px] py-5 text-xl font-medium leading-none text-white disabled:bg-gray-200 disabled:text-gray-400"
+          className="w-1/2"
         >
           {isRegistering ? '가입 중...' : '벤더로 회원가입 하기'}
         </Button>

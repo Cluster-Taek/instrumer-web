@@ -55,7 +55,7 @@ const ChatPageContent = () => {
 
   return (
     <Chat client={client}>
-      <div className="flex flex-row gap-12 h-[calc(100vh-90px)] bg-[#F8F9FB] px-24 py-12">
+      <div className="flex flex-row gap-12 h-[calc(100vh-60px)] bg-[#F8F9FB] px-24 py-12">
         {/* 사이드바: 채팅 목록 */}
         <aside className="w-[400px] shrink-0 shadow-[0px_0px_10px_0px_#0000001A] rounded-[10px] overflow-hidden ">
           <ChannelList

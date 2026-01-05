@@ -57,14 +57,14 @@ const AppliedFilters = ({ appliedFilters, onRemove }: IAppliedFiltersProps) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-2xl font-semibold text-gray-900">적용된 필터</h3>
+      <h3 className="text-xl font-semibold text-gray-900">적용된 필터</h3>
       <div className="flex flex-col gap-4">
         {activeFilters.map(({ key, label }) => (
           <button
             key={key}
             type="button"
             onClick={() => handleRemove(key)}
-            className="flex items-center justify-center rounded-[7px] border bg-[#E1DBFF] px-4 py-3 text-base text-gray-900"
+            className="flex items-center justify-center rounded-[7px] border bg-[#E1DBFF] px-4 py-2.5 text-xs text-gray-900"
           >
             {label}
           </button>
