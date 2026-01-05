@@ -1,22 +1,25 @@
 'use client';
 
 import LoginModal from '../auth/login-modal';
+import UserInfo, { UserInfoSkeleton } from './user-info';
 import { Dropdown } from '@/components/ui/dropdown';
 import { CATEGORY_OPTIONS } from '@/constants/solution-constants';
+import { useUser } from '@/lib/user';
 import { ChevronDown } from '@medusajs/icons';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 
 const Header = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const { data: userData } = useUser();
+  const user = userData?.data;
 
   const handleSignOut = async () => {
-    await signOut({
-      redirect: false,
-    });
+    await signOut({ redirect: false });
     router.push('/');
   };
 
@@ -48,13 +51,28 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          {session ? (
-            <>
-              <span className="text-[18px] text-gray-700">{session.user?.name}</span>
-              <button onClick={handleSignOut} className="text-[18px] text-red-500 hover:text-red-700">
-                로그아웃
-              </button>
-            </>
+          {status === 'loading' ? (
+            <div className="flex items-center gap-3">
+              <UserInfoSkeleton />
+            </div>
+          ) : session ? (
+            <Dropdown.Root>
+              <Dropdown.Trigger className="flex items-center gap-3">
+                <Suspense fallback={<UserInfoSkeleton />}>
+                  <UserInfo />
+                </Suspense>
+              </Dropdown.Trigger>
+              <Dropdown.Content align="end" sideOffset={8}>
+                {user?.userType === 'VENDOR' ? (
+                  <Dropdown.Item onSelect={() => router.push('/vendor/solutions')}>솔루션 관리</Dropdown.Item>
+                ) : (
+                  <Dropdown.Item onSelect={() => router.push('/consumer/mypage')}>마이페이지</Dropdown.Item>
+                )}
+                <Dropdown.Item className="text-red-500 hover:text-red-700" onSelect={handleSignOut}>
+                  로그아웃
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown.Root>
           ) : (
             <>
               <LoginModal />
