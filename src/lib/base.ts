@@ -31,7 +31,7 @@ const _fetchApi = async <T = object>({ method, url, body }: IFetchApiArgs): Prom
     if (typeof window === 'undefined') throw error;
 
     // Case CSR
-    if (error?.status === 401 && window.location.pathname !== '/') {
+    if (error?.response?.status === 401 && window.location.pathname !== '/') {
       await signOut({ redirect: false });
       redirect('/');
     }
