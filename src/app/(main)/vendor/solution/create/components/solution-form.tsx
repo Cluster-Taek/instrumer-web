@@ -101,11 +101,15 @@ const SolutionForm = () => {
             variant="outline"
             onClick={() => router.back()}
             disabled={isPending}
-            className="rounded-full px-12 py-3"
+            className="px-5 py-4 font-semibold leading-none tracking-normal"
           >
             취소
           </Button>
-          <Button type="submit" disabled={isPending} className="rounded-full bg-primary px-12 py-3 text-white">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="bg-primary px-5 py-4 font-semibold leading-none tracking-normal text-white"
+          >
             {isPending ? '등록 중...' : '등록하기'}
           </Button>
         </div>
