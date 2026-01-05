@@ -1,24 +1,15 @@
 'use client';
 
+import CustomerReviewsSection from './components/customer-reviews-section';
 import ServicePlansSection from './components/service-plans-section';
-import { useSolution } from '@/lib/solution';
+import SolutionDetailSkeleton from './components/solution-detail-skeleton';
+import { useSuspenseSolution } from '@/lib/solution';
 import { useParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-const Page = () => {
-  const params = useParams();
-  const solutionSeq = Number(params.id);
-
-  const { data, isLoading, error } = useSolution(solutionSeq);
+const SolutionDetailContent = ({ solutionSeq }: { solutionSeq: number }) => {
+  const { data, error } = useSuspenseSolution(solutionSeq);
   const solution = data?.data;
-
-  // 로딩 상태
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-gray-500">솔루션 정보를 불러오는 중...</div>
-      </div>
-    );
-  }
 
   // 에러 상태
   if (error || !solution) {
@@ -33,14 +24,26 @@ const Page = () => {
   }
 
   return (
-    <div className="mx-auto px-20 py-12 w-full">
+    <div className="mx-auto px-20 py-12 w-full flex flex-col gap-16">
       {/* TODO: 히어로 섹션 추가 예정 */}
 
       {/* 서비스 플랜 섹션 */}
       {solution.plans && solution.plans.length > 0 && <ServicePlansSection solution={solution} />}
 
-      {/* TODO: 리뷰 섹션 추가 예정 */}
+      {/* 이용 고객 리뷰 섹션 */}
+      <CustomerReviewsSection solutionSeq={solutionSeq} />
     </div>
+  );
+};
+
+const Page = () => {
+  const params = useParams();
+  const solutionSeq = Number(params.id);
+
+  return (
+    <Suspense fallback={<SolutionDetailSkeleton />}>
+      <SolutionDetailContent solutionSeq={solutionSeq} />
+    </Suspense>
   );
 };
 

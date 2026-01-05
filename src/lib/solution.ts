@@ -8,7 +8,7 @@ import {
   ISolutionListParams,
   IUpdateSolutionRequest,
 } from '@/types/solution';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 // 솔루션 목록 조회 (Public)
 export const useSolutions = (params?: ISolutionListParams) => {
@@ -22,6 +22,12 @@ export const useSolution = (solutionSeq?: number) => {
   return useQuery<IBaseResponse<IGetSolutionResponse>>({
     queryKey: [`/api/public/solutions/${solutionSeq}`],
     enabled: !!solutionSeq,
+  });
+};
+
+export const useSuspenseSolution = (solutionSeq?: number) => {
+  return useSuspenseQuery<IBaseResponse<IGetSolutionResponse>>({
+    queryKey: [`/api/public/solutions/${solutionSeq}`],
   });
 };
 
