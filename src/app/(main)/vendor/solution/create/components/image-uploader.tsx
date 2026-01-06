@@ -1,10 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import S3Uploader from '@/components/common/s3-uploader';
+import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ISolutionImage } from '@/types/solution';
-import { X, ImagePlus, Upload } from 'lucide-react';
+import { ImagePlus, Upload, X } from 'lucide-react';
 import Image from 'next/image';
 
 const IMAGE_TYPE_OPTIONS = [
@@ -31,14 +31,17 @@ const ImageUploader = ({ images, onChange, multiple = true, maxCount }: ImageUpl
 
     const newImages = urlsToAdd.map((url) => ({
       imageUrl: url,
-      imageType: 'optional',
+      imageType: 'optional' as ISolutionImage['imageType'],
     }));
     onChange([...images, ...newImages]);
   };
 
   const handleImageTypeChange = (index: number, imageType: string) => {
     const updatedImages = [...images];
-    updatedImages[index] = { ...updatedImages[index], imageType };
+    updatedImages[index] = {
+      ...updatedImages[index],
+      imageType: imageType as ISolutionImage['imageType'],
+    };
     onChange(updatedImages);
   };
 
@@ -50,7 +53,12 @@ const ImageUploader = ({ images, onChange, multiple = true, maxCount }: ImageUpl
   return (
     <div className="space-y-4">
       {/* 업로드 버튼 */}
-      <S3Uploader onSuccess={handleUploadSuccess} accept="image/*" multiple={multiple && !isMaxReached} maxSize={10 * 1024 * 1024}>
+      <S3Uploader
+        onSuccess={handleUploadSuccess}
+        accept="image/*"
+        multiple={multiple && !isMaxReached}
+        maxSize={10 * 1024 * 1024}
+      >
         {({ open, uploading, progress }) => (
           <button
             type="button"
@@ -122,9 +130,7 @@ const ImageUploader = ({ images, onChange, multiple = true, maxCount }: ImageUpl
         </div>
       )}
 
-      {images.length === 0 && (
-        <p className="text-center text-sm text-gray-500">등록된 이미지가 없습니다.</p>
-      )}
+      {images.length === 0 && <p className="text-center text-sm text-gray-500">등록된 이미지가 없습니다.</p>}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import SolutionKeywordForm from './solution-keyword-form';
 import SolutionPlanForm from './solution-plan-form';
 import { Button } from '@/components/ui/button';
 import { useCreateSolutionMutation } from '@/lib/solution';
-import { ICreateSolutionRequest, ISolutionPlan } from '@/types/solution';
+import { ICreateSolutionRequest, ISolutionImage, ISolutionPlan } from '@/types/solution';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -62,7 +62,7 @@ const SolutionForm = () => {
         explanation: data.explanation,
         category: data.category,
         price: data.price,
-        images: images.length > 0 ? images : undefined,
+        images: images.length > 0 ? (images as ISolutionImage[]) : undefined,
         plans: data.plans.length > 0 ? data.plans : undefined,
         keywords: data.keywords.length > 0 ? data.keywords : undefined,
       };
