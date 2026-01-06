@@ -46,6 +46,7 @@ export interface ISolutionPlanDetail {
 
 // 솔루션 플랜
 export interface ISolutionPlan {
+  planSeq: number;
   name: string;
   subName?: string;
   price: number | null; // null = 가격 문의

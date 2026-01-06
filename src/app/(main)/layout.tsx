@@ -7,12 +7,10 @@ interface ILayoutProps {
 
 const Layout = ({ children }: ILayoutProps) => {
   return (
-    <div className="flex flex-col w-full relative">
+    <div className="flex flex-col w-full relative bg-[#F8F9FB]">
       <Header />
-      <main className="max-w-screen-xl mx-auto w-full">{children}</main>
-      <footer className="mt-20">
-        <Footer />
-      </footer>
+      <main className="max-w-screen-xl min-h-[calc(100vh-60px)] mx-auto w-full">{children}</main>
+      <Footer />
     </div>
   );
 };

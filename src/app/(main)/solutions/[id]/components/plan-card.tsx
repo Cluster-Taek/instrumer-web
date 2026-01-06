@@ -6,16 +6,16 @@ import { ISolutionPlan } from '@/types/solution';
 import { useRouter } from 'next/navigation';
 
 interface PlanCardProps {
+  solutionSeq: number;
   plan: ISolutionPlan;
   vendorSeq: number;
 }
 
-const PlanCard = ({ plan, vendorSeq }: PlanCardProps) => {
+const PlanCard = ({ solutionSeq, plan, vendorSeq }: PlanCardProps) => {
   const router = useRouter();
 
   const handlePurchase = () => {
-    // TODO: 구매 페이지 구현
-    console.log('구매하기:', plan.name);
+    router.push(`/payment/${solutionSeq}?planId=${plan.planSeq}`);
   };
 
   const handlePriceInquiry = () => {

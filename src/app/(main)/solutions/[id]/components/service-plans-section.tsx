@@ -15,7 +15,12 @@ const ServicePlansSection = ({ solution }: ServicePlansSectionProps) => {
       <h2 className="text-2xl font-semibold">서비스 플랜 정보</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
         {solution.plans.map((plan, index) => (
-          <PlanCard key={`${plan.name}-${index}`} plan={plan} vendorSeq={solution.vendorSeq} />
+          <PlanCard
+            key={`${plan.name}-${index}`}
+            solutionSeq={solution.solutionSeq}
+            plan={plan}
+            vendorSeq={solution.vendorSeq}
+          />
         ))}
       </div>
     </section>
