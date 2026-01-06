@@ -33,14 +33,17 @@ const Footer = () => {
             <div className="flex flex-col gap-4">
               <h3 className="text-base font-bold">법률</h3>
               <div className="flex flex-col gap-2 text-xs text-[#7A7A7A]">
-                <Link href="#" className="hover:text-white">
+                <Link href="/policy/terms" className="hover:text-white">
                   이용약관
                 </Link>
-                <Link href="#" className="hover:text-white">
+                <Link href="/policy/privacy" className="hover:text-white">
                   개인정보처리방침
                 </Link>
-                <Link href="#" className="hover:text-white">
+                <Link href="/policy/operation" className="hover:text-white">
                   운영정책
+                </Link>
+                <Link href="/policy/refund" className="hover:text-white">
+                  환불/교환/배송 정책
                 </Link>
               </div>
             </div>
@@ -48,10 +51,10 @@ const Footer = () => {
             <div className="flex flex-col gap-4">
               <h3 className="text-base font-bold">고객 지원</h3>
               <div className="flex flex-col gap-2 text-xs text-[#7A7A7A]">
-                <Link href="#" className="hover:text-white">
+                <a href="mailto:support@instrumer.com" className="hover:text-white">
                   이메일 문의
-                </Link>
-                <Link href="#" className="hover:text-white">
+                </a>
+                <Link href="/policy/partnership" className="hover:text-white">
                   광고 제휴
                 </Link>
               </div>
