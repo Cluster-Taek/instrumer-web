@@ -14,13 +14,15 @@ const UserInfo = () => {
   const { data: userData } = useSuspenseUserInfo();
   const user = userData?.data;
 
+  const name = user?.businessName || user?.managerName || user?.email;
+
   return (
     <>
       <Avatar className="size-8">
         <AvatarImage src={user?.profileImageUrl} alt="프로필" />
-        <AvatarFallback className="bg-gray-200 text-gray-500">{user?.businessName?.charAt(0) || 'U'}</AvatarFallback>
+        <AvatarFallback className="bg-gray-200 text-gray-500">{name?.charAt(0) || 'U'}</AvatarFallback>
       </Avatar>
-      <span className="text-sm text-gray-700">{user?.businessName}</span>
+      <span className="text-sm text-gray-700">{name}</span>
     </>
   );
 };

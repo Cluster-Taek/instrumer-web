@@ -1,4 +1,5 @@
 import { login, tokenRefresh } from '@/lib/auth';
+import { fetchUserInfo } from '@/lib/user';
 import { IJwtPayload } from '@/types/auth';
 import dayjs from 'dayjs';
 import { jwtDecode } from 'jwt-decode';
@@ -21,9 +22,13 @@ const credentialsProviderOption: CredentialsConfig = {
       });
 
       if (response) {
+        // 로그인 성공 후 유저 정보 조회하여 name 설정
+        const userInfo = await fetchUserInfo(response.accessToken);
+        const userName = userInfo?.businessName || userInfo?.managerName || (credentials?.email as string);
+
         return {
           id: credentials?.email as string,
-          name: credentials?.email as string,
+          name: userName,
           accessToken: response.accessToken,
           refreshToken: response.refreshToken,
         };
