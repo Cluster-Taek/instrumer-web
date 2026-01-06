@@ -1,4 +1,6 @@
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import axios from 'axios';
+import { getServerSession } from 'next-auth';
 import { getSession, signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
@@ -11,9 +13,19 @@ interface IFetchApiArgs {
   external?: boolean;
 }
 
+// 세션 가져오기 (SSR/CSR 분기)
+const getAuthSession = async () => {
+  if (typeof window === 'undefined') {
+    // SSR: getServerSession 사용 (jwt 콜백 실행 → 토큰 리프레시 동작)
+    return await getServerSession(authOptions);
+  }
+  // CSR: getSession 사용
+  return await getSession();
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _fetchApi = async <T = object>({ method, url, body }: IFetchApiArgs): Promise<T> => {
-  const session = await getSession();
+  const session = await getAuthSession();
   const baseUrl = typeof window === 'undefined' ? process.env.NEXT_PUBLIC_DOMAIN || 'http://localhost:3000' : '';
 
   const response = await axios({
@@ -27,11 +39,18 @@ const _fetchApi = async <T = object>({ method, url, body }: IFetchApiArgs): Prom
     },
     withCredentials: true,
   }).catch(async (error) => {
-    // Case. SSR
-    if (typeof window === 'undefined') throw error;
+    const isUnauthorized = error?.response?.status === 401;
 
-    // Case CSR
-    if (error?.response?.status === 401 && window.location.pathname !== '/') {
+    // Case. SSR - 401 시 로그인 페이지로 리다이렉트
+    if (typeof window === 'undefined') {
+      if (isUnauthorized) {
+        redirect('/');
+      }
+      throw error;
+    }
+
+    // Case CSR - 401 시 로그아웃 후 리다이렉트
+    if (isUnauthorized && window.location.pathname !== '/') {
       await signOut({ redirect: false });
       redirect('/');
     }
