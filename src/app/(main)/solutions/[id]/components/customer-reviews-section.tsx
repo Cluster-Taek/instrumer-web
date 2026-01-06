@@ -11,7 +11,7 @@ interface CustomerReviewsSectionProps {
 
 const CustomerReviewsSection = ({ solutionSeq }: CustomerReviewsSectionProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 5;
 
   const { data } = useSolutionReviews(solutionSeq, {
     page: currentPage - 1, // API는 0-based indexing
