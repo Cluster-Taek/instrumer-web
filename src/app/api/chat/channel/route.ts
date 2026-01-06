@@ -3,10 +3,7 @@ import { fetchUserInfoByUserSeq } from '@/lib/user';
 import { NextResponse } from 'next/server';
 import { StreamChat } from 'stream-chat';
 
-const serverClient = StreamChat.getInstance(
-  process.env.NEXT_PUBLIC_STREAM_KEY!,
-  process.env.STREAM_SECRET!
-);
+const serverClient = StreamChat.getInstance(process.env.NEXT_PUBLIC_STREAM_KEY!, process.env.STREAM_SECRET!);
 
 /**
  * 1:1 DM 채널 생성/조회 API
@@ -17,23 +14,14 @@ export async function POST(request: Request) {
     const { userSeq1, userSeq2 } = await request.json();
 
     if (!userSeq1 || !userSeq2) {
-      return NextResponse.json(
-        { error: 'userSeq1 and userSeq2 are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'userSeq1 and userSeq2 are required' }, { status: 400 });
     }
 
     // 두 사용자 정보 조회
-    const [user1, user2] = await Promise.all([
-      fetchUserInfoByUserSeq(userSeq1),
-      fetchUserInfoByUserSeq(userSeq2),
-    ]);
+    const [user1, user2] = await Promise.all([fetchUserInfoByUserSeq(userSeq1), fetchUserInfoByUserSeq(userSeq2)]);
 
     if (!user1 || !user2) {
-      return NextResponse.json(
-        { error: '사용자 정보를 찾을 수 없습니다.' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: '사용자 정보를 찾을 수 없습니다.' }, { status: 404 });
     }
 
     const streamChatId1 = toStreamChatId(userSeq1);
@@ -63,10 +51,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error('채널 생성 실패:', error);
-    return NextResponse.json(
-      { error: '채널 생성에 실패했습니다.' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: '채널 생성에 실패했습니다.' }, { status: 500 });
   }
 }
-
