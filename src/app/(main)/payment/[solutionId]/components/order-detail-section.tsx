@@ -1,17 +1,21 @@
 import { CATEGORY_OPTIONS } from '@/constants/solution-constants';
-import { IGetSolutionResponse } from '@/types/solution';
+import { IGetSolutionResponse, ISolutionPlan } from '@/types/solution';
 import Image from 'next/image';
 
 interface OrderDetailSectionProps {
   solution: IGetSolutionResponse;
+  selectedPlan: ISolutionPlan | null;
 }
 
-const OrderDetailSection = ({ solution }: OrderDetailSectionProps) => {
+const OrderDetailSection = ({ solution, selectedPlan }: OrderDetailSectionProps) => {
   // 대표 이미지 찾기
   const representImage = solution.images?.find((img) => img.imageType === 'representation')?.imageUrl;
 
   // 카테고리 라벨 변환
   const categoryLabel = CATEGORY_OPTIONS.find((opt) => opt.value === solution.category)?.label || solution.category;
+
+  // 표시할 가격 (플랜 가격 우선)
+  const displayPrice = selectedPlan?.price ?? solution.price;
 
   return (
     <div className="flex flex-col gap-4">
@@ -38,7 +42,7 @@ const OrderDetailSection = ({ solution }: OrderDetailSectionProps) => {
             <div className="flex justify-between">
               <span className="text-sm text-gray-500">가격</span>
               <span className="text-sm">
-                {solution.price.toLocaleString()}원<span className="text-gray-400">(VAT 별도)</span>
+                {displayPrice.toLocaleString()}원<span className="text-gray-400">/월 (VAT 별도)</span>
               </span>
             </div>
             <div className="flex justify-between">
